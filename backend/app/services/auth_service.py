@@ -33,7 +33,7 @@ class AuthService:
             hashed_password=hash_password(user_data.password),
             full_name=user_data.full_name,
             role=user_data.role,
-            is_verified=False,
+            is_verified=True,
             verification_token=verification_token
         )
 
