@@ -37,7 +37,7 @@ data/*.csv
 data/*.zip
 
 # Models
-models/*.pkl
+# models/*.pkl
 models/*.json
 
 # Logs
@@ -63,3 +63,8 @@ frontend/.vite/
 
 # Docker
 .dockerignore
+
+.kiro/
+backend/confusion_matrix.png
+backend/roc_curve.png
+backend/evaluation_report.txt

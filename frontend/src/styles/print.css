@@ -1,0 +1,55 @@
+/* Print styles for SHAP Report */
+@media print {
+
+    /* Hide non-printable elements */
+    .print\:hidden {
+        display: none !important;
+    }
+
+    /* Show print-only elements */
+    .print\:block {
+        display: block !important;
+    }
+
+    /* Page setup */
+    @page {
+        margin: 0.5in;
+        size: letter;
+    }
+
+    body {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* Ensure colors are printed */
+    * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* Prevent page breaks inside elements */
+    .print\:avoid-break {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    /* Remove shadows and transitions for print */
+    * {
+        box-shadow: none !important;
+        transition: none !important;
+    }
+
+    /* Ensure proper spacing */
+    .print\:p-8 {
+        padding: 2rem !important;
+    }
+
+    /* Make sure backgrounds print */
+    .bg-primary,
+    .bg-green-50,
+    .bg-red-50,
+    .bg-muted {
+        background-color: inherit !important;
+    }
+}

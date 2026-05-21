@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from app.database import get_db
@@ -87,3 +87,38 @@ async def get_credit_score(
         raise HTTPException(status_code=404, detail="Credit score not yet generated")
     
     return application.credit_score
+
+
+@router.get("/{application_id}/shap-report/pdf")
+async def download_shap_report_pdf(
+    application_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Download SHAP report as PDF"""
+    from fastapi.responses import Response
+    from app.services.pdf_service import generate_shap_pdf
+    
+    application = db.query(Application).filter(Application.id == application_id).first()
+    
+    if not application:
+        raise HTTPException(status_code=404, detail="Application not found")
+    
+    # Authorization check
+    is_admin = current_user.role == "admin"
+    if not is_admin and application.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Access denied")
+    
+    if not application.credit_score:
+        raise HTTPException(status_code=404, detail="Credit score not yet generated")
+    
+    # Generate PDF
+    pdf_bytes = generate_shap_pdf(application, application.credit_score)
+    
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f"attachment; filename=SHAP_Report_{application_id}.pdf"
+        }
+    )
