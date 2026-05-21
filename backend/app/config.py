@@ -18,7 +18,10 @@ class Settings(BaseSettings):
     
     # API
     API_V1_PREFIX: str = "/api/v1"
-    BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:3000"]
+    BACKEND_CORS_ORIGINS: List[str] = [
+    "http://localhost:3000",
+    "https://edi-4.vercel.app"
+]
     
     # Application
     PROJECT_NAME: str = "AI Credit Scoring Platform"
@@ -28,7 +31,7 @@ class Settings(BaseSettings):
     # Email
     GMAIL_ADDRESS: str = ""
     GMAIL_APP_PASSWORD: str = ""
-    FRONTEND_URL: str = "http://localhost:3000"
+    FRONTEND_URL: str = "https://edi-4.vercel.app"
     class Config:
         env_file = ".env"
         case_sensitive = True
