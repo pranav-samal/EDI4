@@ -11,11 +11,30 @@ class EmailService:
         self.sender_email = settings.GMAIL_ADDRESS
         self.sender_password = settings.GMAIL_APP_PASSWORD
 
-    def _send(self, msg):
-        with smtplib.SMTP(self.smtp_host, self.smtp_port) as server:
-            server.starttls()
-            server.login(self.sender_email, self.sender_password)
-            server.sendmail(self.sender_email, msg["To"], msg.as_string())
+def _send(self, msg):
+    print(f"EMAIL DEBUG → host={self.smtp_host}")
+    print(f"EMAIL DEBUG → sender={self.sender_email}")
+
+    with smtplib.SMTP(self.smtp_host, self.smtp_port, timeout=30) as server:
+        server.set_debuglevel(1)
+
+        print("EMAIL DEBUG → opening SMTP")
+
+        server.starttls()
+
+        print("EMAIL DEBUG → logging in")
+
+        server.login(self.sender_email, self.sender_password)
+
+        print("EMAIL DEBUG → sending")
+
+        server.sendmail(
+            self.sender_email,
+            msg["To"],
+            msg.as_string()
+        )
+
+        print("EMAIL DEBUG → success")
 
     def send_status_notification(self, to_email: str, full_name: str, application_id: int, new_status: str, reason: str = None):
         """Send email when admin approves or rejects an application"""
