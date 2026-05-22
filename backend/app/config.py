@@ -1,6 +1,5 @@
 from pydantic_settings import BaseSettings
 from typing import List
-from pathlib import Path
 
 
 class Settings(BaseSettings):
@@ -14,11 +13,9 @@ class Settings(BaseSettings):
     
     # Model paths
 
-    BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-    MODEL_PATH: str = str(BASE_DIR / "models" / "xgboost_model.pkl")
-    SHAP_EXPLAINER_PATH: str = str(BASE_DIR / "models" / "shap_explainer.pkl")
-    FEATURE_NAMES_PATH: str = str(BASE_DIR / "models" / "feature_names.pkl")
+    MODEL_PATH: str = "/app/models/xgboost_model.pkl"
+    SHAP_EXPLAINER_PATH: str = "/app/models/shap_explainer.pkl"
+    FEATURE_NAMES_PATH: str = "/app/models/feature_names.pkl"
         
     # API
     API_V1_PREFIX: str = "/api/v1"
