@@ -101,9 +101,9 @@ class EmailService:
         full_name: str,
         token: str
     ):
-        verify_url = (
-            f"{settings.FRONTEND_URL}/verify-email?token={token}"
-        )
+      verify_url = (
+    f"https://edi4.onrender.com/api/v1/auth/verify-email?token={token}"
+    )
 
         msg = MIMEMultipart("alternative")
 
